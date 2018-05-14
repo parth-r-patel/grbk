@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+      <link rel="stylesheet" href="app.css">
+      <link rel="stylesheet" href="../node_modules/xel/themes/material.css">
+      <script src="../node_modules/xel/xel.min.js"></script>
+      <title>Hello World!</title>
+    </head>
+    <body>
+      <!-- <h1>Hello World!</h1>
+      We are using node <script>document.write(process.versions.node)</script>,
+      Chrome <script>document.write(process.versions.chrome)</script>,
+      and Electron <script>document.write(process.versions.electron)</script>.
+      <x-slider id="slider" value="10"></x-slider> -->
+      <x-box style="width: 500px; margin:auto">
+        <x-card>
+          <header>
+            <h3 style="text-align: center">
+              Login
+            </h3>
+          </header>
+          <main>
+            <x-box vertical style="align-items: center">
+                <x-input skin="flat">
+                  <x-icon name="person" iconset="icons.svg"></x-icon>
+                  <x-label>Username</x-label>
+                </x-input>
+                <x-input skin="flat">
+                    <x-icon name="lock" iconset="icons.svg"></x-icon>
+                    <x-label>Password</x-label>
+                  </x-input>
+            </x-box>
+          </main>
+        </x-card>
+      </x-box>
+    </body>
+  </html>

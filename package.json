@@ -1,0 +1,15 @@
+{
+  "name": "electron-timer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "pletap",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^2.0.0",
+    "xel": "0.0.136"
+  }
+}
