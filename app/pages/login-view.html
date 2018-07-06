@@ -1,0 +1,29 @@
+<template id="login-view">
+  <script src="../controllers/login.js"></script>
+  
+  <x-box style="width: 500px; margin:auto">
+    <x-card>
+      <header>
+        <h3 style="text-align: center">
+          Login
+        </h3>
+      </header>
+      <main>
+        <x-box vertical style="align-items: center">
+          <x-input id="username" skin="flat">
+            <x-icon name="person" iconset="../../node_modules/xel/images/icons.svg"></x-icon>
+            <x-label>Username</x-label>
+          </x-input>
+          <x-input id="password" skin="flat">
+            <x-icon name="lock" iconset="../../node_modules/xel/images/icons.svg"></x-icon>
+            <x-label>Password</x-label>
+          </x-input>
+          <x-button id="loginButton">
+            <x-label>Dashboard</x-label>
+          </x-button>
+          <x-throbber id="loading" style="display: none;"></x-throbber>
+        </x-box>
+      </main>
+    </x-card>
+  </x-box>
+</template>

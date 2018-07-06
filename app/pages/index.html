@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Hello World!</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <link rel="stylesheet" href="../../node_modules/xel/themes/material.css">
+  <script src="../../node_modules/xel/xel.min.js"></script>
+
+  <link rel="stylesheet" href="">
+  <link rel="import" href="login-view.html">
+  <link rel="import" href="dash-view.html">
+</head>
+
+<body>
+  <button id="vwLogin" route="login">Login</button>
+  <button id="vwDash" route="dash">Dash</button>
+  <div id="app">
+    <!-- dynamically update views here -->
+  </div>
+
+  <!-- <script src="../controllers/index.js"></script> -->
+  <script>
+    require("../controllers/index.js");
+  </script>
+</body>
+
+</html>

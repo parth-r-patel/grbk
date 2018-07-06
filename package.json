@@ -1,15 +1,24 @@
 {
-  "name": "electron-timer",
+  "name": "gradebook",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "build"
+  },
+  "build": {
+    "win": {
+      "target": "NSIS"
+    }
   },
   "author": "pletap",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^2.0.0",
+    "electron": "^2.0.2",
+    "electron-builder": "^20.18.0"
+  },
+  "dependencies": {
     "xel": "0.0.136"
   }
 }
