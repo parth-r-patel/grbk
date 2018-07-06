@@ -23,6 +23,8 @@ let removeViews = () => {
     }
 };
 
+// TODO: make router work for loading at any route, right now only works for default route
+// TODO: make forward and back ability work with history api
 window.onload = () => {
     // the route display element
     container = document.getElementById("app");
