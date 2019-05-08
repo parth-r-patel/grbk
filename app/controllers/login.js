@@ -2,9 +2,9 @@
   let btnLogin = document.getElementById("loginButton");
   let txtUsername = document.getElementById("username");
   let txtPassword = document.getElementById("password");
-  let loading = document.getElementById("loading");
-
+  
   btnLogin.addEventListener("click", () => {
+    let loading = document.getElementById("loading");
     loading.style = "display: block;";
     let user = {
       username: txtUsername.value,
@@ -18,6 +18,11 @@
   });
 
   let loginHandler = (event, data) => {
-    console.log(data);
+    if(data) {
+      global.grbk.navigate("dash");
+    }
+    else{
+      console.log("failed");
+    }
   };
 }

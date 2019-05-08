@@ -8,7 +8,8 @@ let routes = [
     {
         name: "login",
         path: "#login",
-        id: "login-view"
+        id: "login-view",
+        ctrl: "login.js"
     },
     {
         name: "dash",
@@ -21,6 +22,26 @@ let removeViews = () => {
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
+};
+
+let routeTo = (newName) => {
+    // remove any old template from DOM
+    removeViews();
+    // based on the nav item clicked, select the new route information
+    let routeInfo = routes.filter((route) => {
+        return route.name === newName;
+    })[0];
+    console.debug(tpl.import);
+    // if the route is navigated to first time, load its template into the route information for reuse
+    if (!routeInfo.tpl) {
+        let tpl = Array.from(links).filter((link) => {
+            return link.getAttribute("href") === routeInfo.id + ".html";
+        })[0];
+        
+        routeInfo.tpl = tpl.import.getElementById(routeInfo.id);
+    }
+    // add the new route template to the DOM
+    container.appendChild(document.importNode(routeInfo.tpl.content, true));
 };
 
 // TODO: make router work for loading at any route, right now only works for default route
@@ -36,21 +57,7 @@ window.onload = () => {
 
     // create the generic nav handler used by all nav items
     let navHandler = (event) => {
-        // remove any old template from DOM
-        removeViews();
-        // based on the nav item clicked, select the new route information
-        let routeInfo = routes.filter((route) => {
-            return route.name === event.target.getAttribute("route");
-        })[0];
-        // if the route is navigated to first time, load its template into the route information for reuse
-        if (!routeInfo.tpl) {
-            let tplLogin = Array.from(links).filter((link) => {
-                return link.getAttribute("href") === routeInfo.id + ".html";
-            })[0];
-            routeInfo.tpl = tplLogin.import.getElementById(routeInfo.id);
-        }
-        // add the new route template to the DOM
-        container.appendChild(document.importNode(routeInfo.tpl.content, true));
+        routeTo(event.target.getAttribute("route"));
     };
 
     // register event listeners for all nav items to load view
@@ -77,5 +84,6 @@ global.grbk = {
         ipc.on(rtnmsg, (event, data) => {
             callback(event, data);
         });
-    }
+    },
+    navigate: (name) => routeTo(name)
 };
