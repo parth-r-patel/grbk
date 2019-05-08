@@ -31,13 +31,11 @@ let routeTo = (newName) => {
     let routeInfo = routes.filter((route) => {
         return route.name === newName;
     })[0];
-    console.debug(tpl.import);
     // if the route is navigated to first time, load its template into the route information for reuse
     if (!routeInfo.tpl) {
         let tpl = Array.from(links).filter((link) => {
             return link.getAttribute("href") === routeInfo.id + ".html";
         })[0];
-        
         routeInfo.tpl = tpl.import.getElementById(routeInfo.id);
     }
     // add the new route template to the DOM
