@@ -24,7 +24,8 @@
 
   <!-- <script src="../controllers/index.js"></script> -->
   <script>
-    require("../controllers/index.js");
+    require = require('esm')(module);
+      require('../controllers/renderer.js');
   </script>
 </body>
 

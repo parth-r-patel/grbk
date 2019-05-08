@@ -1,7 +1,7 @@
-const {app, BrowserWindow} = require("electron");
-const path = require("path");
-const url = require("url");
-const ipc = require("electron").ipcMain;
+import {app, BrowserWindow} from 'electron';
+import * as path from 'path';
+import * as url from 'url';
+import {ipcMain as ipc} from 'electron';
 
 const env = process.env.NODE_ENV;
 

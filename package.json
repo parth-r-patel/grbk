@@ -2,7 +2,7 @@
   "name": "gradebook",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
     "start": "electron .",
     "dist": "build"
@@ -19,6 +19,7 @@
     "electron-builder": "^20.18.0"
   },
   "dependencies": {
+    "esm": "^3.2.22",
     "xel": "0.0.136"
   }
 }

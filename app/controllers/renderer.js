@@ -1,5 +1,7 @@
-const ipc = require("electron").ipcRenderer;
+import {ipcRenderer as electronIpc} from 'electron';
+import Router from '../router/router.js';
 let container, links, nav;
+
 let routes = [
     {
         name: "root",
@@ -71,7 +73,7 @@ global.grbk = {
             global.grbk.msgs.push(msgs);
             global.grbk.addListener(msgs.rtnmsg, callback);
         }
-        ipc.send(msgs.msg, data);
+        electronIpc.send(msgs.msg, data);
     },
     equals: (obj) => {
         return global.grbk.msgs.some((m, i) => {
@@ -79,7 +81,7 @@ global.grbk = {
         });
     },
     addListener: (rtnmsg, callback) => {
-        ipc.on(rtnmsg, (event, data) => {
+        electronIpc.on(rtnmsg, (event, data) => {
             callback(event, data);
         });
     },
