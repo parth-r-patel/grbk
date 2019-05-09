@@ -1,6 +1,6 @@
 import {ipcRenderer as electronIpc} from 'electron';
-import Router from '../router/router.js';
-let container, links, nav;
+import Router from './router/router.js';
+let container, imports, nav;
 
 let routes = [
     {
@@ -20,44 +20,22 @@ let routes = [
     }
 ];
 
-let removeViews = () => {
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
-};
-
-let routeTo = (newName) => {
-    // remove any old template from DOM
-    removeViews();
-    // based on the nav item clicked, select the new route information
-    let routeInfo = routes.filter((route) => {
-        return route.name === newName;
-    })[0];
-    // if the route is navigated to first time, load its template into the route information for reuse
-    if (!routeInfo.tpl) {
-        let tpl = Array.from(links).filter((link) => {
-            return link.getAttribute("href") === routeInfo.id + ".html";
-        })[0];
-        routeInfo.tpl = tpl.import.getElementById(routeInfo.id);
-    }
-    // add the new route template to the DOM
-    container.appendChild(document.importNode(routeInfo.tpl.content, true));
-};
-
 // TODO: make router work for loading at any route, right now only works for default route
 // TODO: make forward and back ability work with history api
 window.onload = () => {
     // the route display element
     container = document.getElementById("app");
     // get node list of all link tags for view template
-    links = document.querySelectorAll("link[rel='import']");
+    imports = document.querySelectorAll("link[rel='import']");
+    // pass the view contianer and the import nodes for view templates
+    Router.setup(container, imports, routes);
     // get node list of all nav buttons for view templace
     // TODO: replace with any form of navigation for app
     nav = document.querySelectorAll("button[route]");
 
     // create the generic nav handler used by all nav items
     let navHandler = (event) => {
-        routeTo(event.target.getAttribute("route"));
+        Router.routeTo(event.target.getAttribute("route"));
     };
 
     // register event listeners for all nav items to load view
@@ -66,6 +44,7 @@ window.onload = () => {
     });
 };
 
+// TODO: try to see if esm allows for importing ipc in view controllers and remove global.grbk
 global.grbk = {
     msgs: [],
     ipcSend: (msgs, data, callback) => {
@@ -85,5 +64,5 @@ global.grbk = {
             callback(event, data);
         });
     },
-    navigate: (name) => routeTo(name)
+    navigate: (name) => Router.routeTo(name)
 };
