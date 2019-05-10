@@ -1,13 +1,13 @@
-import {app, BrowserWindow} from 'electron';
+import {app, BrowserWindow, ipcMain as ipc} from 'electron';
+import fetch from 'electron-fetch';
 import * as path from 'path';
 import * as url from 'url';
-import {ipcMain as ipc} from 'electron';
 
 const env = process.env.NODE_ENV;
 
 // Keep a global reference of the window object, if you don"t, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let win;
+let win, apicall;
 
 const scheme = "app";
 
@@ -69,10 +69,29 @@ app.on("activate", () => {
   }
 });
 
+let tbarequest = {
+  hostname: "thebluealliance.com",
+  path: "/api/v3/event/2018dal/teams/keys",
+  protocol: "https:"
+}
+
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
 ipc.on("login-submit", (event, data) => {
-  setTimeout(() => {
-    event.sender.send("login-attempt", data.username === "a" && data.password === "123");
-  }, 1500);
+  fetch("https://www.thebluealliance.com/api/v3/event/2018dal/teams/keys", {
+    headers: {
+      "X-TBA-Auth-Key": "juxp3YbEQdm2Hvn0sb0t0Et4zkAhlYEBjvsXmPhwHLSpssRJjibOREuU0gbuQUku"
+    }
+  }).then(res => res.json())
+    .then(body => {
+      let result = {
+        "success": true,
+        "body": body
+      };
+      event.sender.send("login-attempt", result);
+    }).catch(err => {
+      let result = {"success": false};
+      event.sender.send("login-attempt", result);
+    });
+    
 });

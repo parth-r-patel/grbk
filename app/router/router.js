@@ -1,11 +1,21 @@
 let viewContainer, importsList;
 let Router = {
     routes: [],
+    navHandler: null,
 
-    setup: (container, imports, routes) => {
+    /** 
+     * Sets up the Router object with the necessary features for a basic router
+     * 
+     * @param {object} container the node object that holds the router's html tag for views
+     * @param {array} imports array of all the link tag elements that will be used to import the rout view templates
+     * @param {array} routes array of the routes used by the router, defaults empty
+     * @param {function} handler event handler function used to trigger routeTo for nav elements
+     */
+    setup: (container, imports, routes, handler) => {
         Router.setContainer(container);
         Router.setImportsList(imports);
         Router.routes = routes;
+        Router.navHandler = handler;
     },
     addRoute: (route) => {
         Router.routes.push(route);
@@ -43,6 +53,14 @@ let Router = {
         }
         // add the new route template to the DOM
         viewContainer.appendChild(document.importNode(routeInfo.tpl.content, true));
+    },
+    setNavHandler: (handler) => {
+        Router.navHandler = handler;
+    },
+    registerNavHandler: (...nodes) => {
+        for(let node of nodes) {
+            node.addEventListener("click", Router.navHandler);
+        }
     }
 }
 

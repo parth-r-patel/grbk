@@ -18,8 +18,9 @@
   });
 
   let loginHandler = (event, data) => {
-    if(data) {
+    if(data.success) {
       global.grbk.navigate("dash");
+      console.log(data.body);
     }
     else{
       console.log("failed");

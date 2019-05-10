@@ -28,20 +28,14 @@ window.onload = () => {
     // get node list of all link tags for view template
     imports = document.querySelectorAll("link[rel='import']");
     // pass the view contianer and the import nodes for view templates
-    Router.setup(container, imports, routes);
+    Router.setup(container, imports, routes, (event) => {
+        Router.routeTo(event.target.getAttribute("route"));
+    });
     // get node list of all nav buttons for view templace
     // TODO: replace with any form of navigation for app
     nav = document.querySelectorAll("button[route]");
-
-    // create the generic nav handler used by all nav items
-    let navHandler = (event) => {
-        Router.routeTo(event.target.getAttribute("route"));
-    };
-
     // register event listeners for all nav items to load view
-    Array.from(nav).forEach((navItem) => {
-        navItem.addEventListener("click", navHandler);
-    });
+    Router.registerNavHandler(...nav);
 };
 
 // TODO: try to see if esm allows for importing ipc in view controllers and remove global.grbk
